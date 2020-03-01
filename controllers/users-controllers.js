@@ -8,9 +8,9 @@ const User = require("../models/user");
 const HttpError = require("../models/http-error");
 
 aws.config.update({
-  secretAccessKey: process.env.AWS_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID
-  // region: process.env.AWS_REGION
+  secretAccessKey: process.env.ACCESS_KEY,
+  accessKeyId: process.env.ACCESS_KEY_ID
+  // region: process.env.REGION
 });
 
 const getUsers = async (req, res, next) => {
@@ -68,7 +68,7 @@ const signup = async (req, res, next) => {
   const s3 = new aws.S3();
   const s3Params = {
     ACL: "public-read",
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: process.env.S3_BUCKET_NAME,
     Body: fs.createReadStream(req.file.path),
     Key: `userAvatar/${req.file.filename}`
   };

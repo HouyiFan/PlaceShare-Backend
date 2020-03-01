@@ -9,9 +9,9 @@ const Place = require("../models/place");
 const User = require("../models/user");
 
 aws.config.update({
-  secretAccessKey: process.env.AWS_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID
-  // region: process.env.AWS_REGION
+  secretAccessKey: process.env.ACCESS_KEY,
+  accessKeyId: process.env.ACCESS_KEY_ID
+  // region: process.env.REGION
 });
 
 const getPlaceById = async (req, res, next) => {
@@ -96,7 +96,7 @@ const createPlace = async (req, res, next) => {
   const s3 = new aws.S3();
   const s3Params = {
     ACL: "public-read",
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: process.env.S3_BUCKET_NAME,
     Body: fs.createReadStream(req.file.path),
     Key: `placeImage/${req.file.filename}`
   };
@@ -237,7 +237,7 @@ const deletePlace = async (req, res, next) => {
 
   const s3 = new aws.S3();
   const s3Params = {
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: process.env.S3_BUCKET_NAME,
     Key: imagePath
   };
 
